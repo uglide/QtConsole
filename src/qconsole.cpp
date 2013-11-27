@@ -35,16 +35,14 @@ QSize PopupListWidget::sizeHint() const
 		QAbstractItemDelegate *delegate = this->itemDelegate();
 		const QStyleOptionViewItem sovi;
 		int left, top, right, bottom = 0;
-#if QT_VERSION >= 0x040600
+
 		QMargins margin = this->contentsMargins();
 
 		top = margin.top();
 		bottom = margin.bottom();
 		left = margin.left();
 		right = margin.right();
-#else
-		getContentsMargins(&left, &top, &right, &bottom);
-#endif
+
 		const int vOffset = top + bottom;
 		const int hOffset = left + right;
 
@@ -307,19 +305,12 @@ void QConsole::handleTabKeyPress()
 				// common word completion
 				QString commonWord = getCommonWord(sl);
 				command = commonWord;
-#ifdef USE_POPUP_COMPLETER
+
 				PopupCompleter *popup = new PopupCompleter(sl);
 				if (popup->exec(this) == QDialog::Accepted)
 						replaceCurrentCommand(commandPrefix + popup->selected());
 				delete popup;
-#else
 
-				setTextColor(completionColor);
-				append(sl.join(", ") + "\n");
-				setTextColor(cmdColor());
-				displayPrompt();
-				textCursor().insertText(commandPrefix + command);
-#endif
 			}
 		}
 }
@@ -653,38 +644,6 @@ bool QConsole::execCommand(const QString &command, bool writeCommand,
 		return !res;
 }
 
-//saves a file script
-int QConsole::saveScript(const QString &fileName)
-{
-		QFile f(fileName);
-		if (!f.open(WRITE_ONLY))
-			return -1;
-		QTextStream ts(&f);
-		for ( QStringList::Iterator it = recordedScript.begin(); it != recordedScript.end(); ++it)
-			ts << *it << "\n";
-		f.close();
-		return 0;
-}
-
-//loads a file script
-int QConsole::loadScript(const QString &fileName)
-{
-		QFile f(fileName);
-		if (!f.open(QIODevice::ReadOnly))
-			return -1;
-		QTextStream ts(&f);
-		QString command;
-		while(true)
-		{
-			command=ts.readLine();
-			if (command.isNull())
-				break;
-			//done
-			execCommand(command, true, false);
-		}
-		f.close();
-		return 0;
-}
 
 //Change paste behaviour
 void QConsole::insertFromMimeData(const QMimeData *source)

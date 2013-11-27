@@ -45,22 +45,6 @@ The QtConsole class is a custom widget that implements a basic console, complete
 
   - Selection using the mouse is possible everywhere.
 
-## Install
-
-**qpyconsole:**
-
-   The only required library is the Python library version 2.4 (older
-versions could work as well).
-
-   Both environment variables: PYTHON_PATH & PYTHON_VERSION should bet
-set in order to link with the python library.
-
-
-## TODO
-
-  * We still can write outside edition zone (using mouse tricks)
-  * Improve support for Ctrl+C : example, stop current command execution
-  * Implement a pager
 
 ## AUTHORS:
 

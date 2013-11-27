@@ -31,10 +31,6 @@
 #include <QListWidget>
 #include <QDebug>
 
-#if QT_VERSION < 0x040000
-#error "supports only Qt 4.0 or greater"
-#endif
-
 /**
  * Subclasssing QListWidget
  *
@@ -109,10 +105,7 @@ public:
 		//execCommand(QString) executes the command and displays back its result
 		bool execCommand(const QString &command, bool writeCommand = true,
 										 bool showPrompt = true, QString *result = NULL);
-		//saves a file script
-		int saveScript(const QString &fileName);
-		//loads a file script
-		int loadScript(const QString &fileName);
+
 		//clear & reset the console (useful sometimes)
 		void clear();
 		void reset(const QString &welcomeText = "");
