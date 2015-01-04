@@ -620,16 +620,16 @@ void QConsole::printCommandExecutionResults(const QString &result, ResultType ty
 
 	append(result);
 
-	if (!result.endsWith("\n"))
-		append("\n");
-
-	moveCursor(QTextCursor::End);
-
 	//Display the prompt again
 	if (type == ResultType::Complete || type == ResultType::Error) {
+        if (!result.endsWith("\n"))
+            append("\n");
+
 		isLocked = false;
 		displayPrompt();
 	}
+
+    moveCursor(QTextCursor::End);
 }	
 
 
