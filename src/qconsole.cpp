@@ -214,6 +214,8 @@ QConsole::QConsole(QWidget *parent, const QString &welcomeText)
       outColor_(Qt::white), completionColor(Qt::darkGreen),
       promptLength(0), promptParagraph(0), isLocked(false)
 {
+    // Disable accepting rich text from user
+    setAcceptRichText(false);
 
     //Disable undo/redo
     setUndoRedoEnabled(false);
