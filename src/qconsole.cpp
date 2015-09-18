@@ -747,7 +747,7 @@ void QConsole::cut()
 {
     //Cut only in the editing zone,
     //perfom a copy otherwise
-    if(isInEditionZone())
+    if(isSelectionInEditionZone())
     {
         QTextEdit::cut();
         return;
